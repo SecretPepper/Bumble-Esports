@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#151719">
+
+  <title>Player Stats — Bumble Esports</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- GAME TABS -->
+    <nav class="game-tabs" aria-label="Choose game">
+      <button type="button" class="game-tab active" data-game="fortnite">
+        Fortnite
+      </button>
+
+      <button type="button" class="game-tab" data-game="rocket-league">
+        Rocket League
+      </button>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="topbar" id="gameTopbar">
+      <a class="brand" href="#" aria-label="Home">
+        <span class="brand-mark">⚡</span>
+      </a>
+
+      <form id="globalSearchForm" class="global-search" role="search">
+        <span class="global-search-icon" aria-hidden="true">⌕</span>
+
+        <input
+          id="globalPlayerSearch"
+          type="search"
+          placeholder="Search players…"
+          autocomplete="off"
+          aria-label="Search players">
+
+        <kbd>ENTER</kbd>
+
+        <div id="globalSearchResults" class="global-search-results hidden"></div>
+      </form>
+    </header>
+
+    <!-- PAGE -->
+    <div class="page-grid" id="gamePage">
+      <main class="main-column">
+
+        <!-- PLAYER PROFILE -->
+        <section class="profile-card panel">
+          <div class="profile-top">
+
+            <div class="rank-symbol" aria-hidden="true">
+              <span>ϟ</span>
+            </div>
+
+            <div class="rank-summary">
+              <div class="profile-identity">
+                <span id="profileGame">FORTNITE PLAYER</span>
+                <h1 id="profileName">Pepper</h1>
+                <span id="profileDetails">Europe · PRO · Netherlands</span>
+              </div>
+
+              <div class="muted">Skill Points</div>
+              <div class="rank-number" id="skillPoints">0</div>
+              <div class="rank-meta" id="rankMeta">Academy 3</div>
+
+              <a href="#events" class="yellow-link">
+                View Most SP Events
+              </a>
+
+              <div class="mini-stats">
+                <div>
+                  <span class="muted">This Year</span>
+                  <strong id="yearSP">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- EVENT-BASED GRAPH -->
+            <div class="chart-area">
+              <div class="chart-tabs">
+                <button
+                  type="button"
+                  class="chart-tab active"
+                  data-chart="sp">
+                  Skill Points
+                </button>
+
+                <button
+                  type="button"
+                  class="chart-tab"
+                  data-chart="earnings">
+                  Earnings
+                </button>
+              </div>
+
+              <div class="chart-wrap">
+                <canvas
+                  id="historyChart"
+                  aria-label="Player event-based statistics graph">
+                </canvas>
+
+                <div id="chartTooltip" class="chart-tooltip hidden"></div>
+              </div>
+
+              <div class="chart-labels" id="chartLabels">
+                <span>Hover over graph for event details</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PLAYER TOTALS -->
+          <div class="profile-bottom">
+            <div class="totals-block">
+              <h2>Event Totals</h2>
+
+              <div class="stats-grid">
+                <div>
+                  <span class="muted">Earnings</span>
+                  <strong id="earnings">$0</strong>
+
+                  <a href="#events" class="yellow-link small-link">
+                    View Most Earnings
+                  </a>
+                </div>
+
+                <div>
+                  <span class="muted">Events</span>
+                  <strong id="eventsCount">0</strong>
+                </div>
+
+                <div>
+                  <span class="muted">Matches</span>
+                  <strong id="matchesCount">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- EVENT PLACEMENTS -->
+            <div class="totals-block placements-block">
+              <h2>Event Placements</h2>
+
+              <div class="stats-grid">
+                <div>
+                  <span class="muted">Top 1's</span>
+                  <strong id="top1">0</strong>
+                </div>
+
+                <div>
+                  <span class="muted">Top 10's</span>
+                  <strong id="top10">0</strong>
+                </div>
+
+                <div>
+                  <span class="muted">Top 100's</span>
+                  <strong id="top100">0</strong>
+                </div>
+
+                <div>
+                  <span class="muted">Avg. Place</span>
+                  <strong id="avgPlace">0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EVENT RESULTS -->
+        <section id="events" class="event-section">
+          <div class="section-heading">
+            <h2 id="eventHeading">FORTNITE EVENT RESULTS</h2>
+            <span id="eventsPlayed" class="muted">0 Events Played</span>
+          </div>
+
+          <div class="table-panel">
+
+            <!-- TABLE TOOLS -->
+            <div class="table-tools">
+              <div class="search-field">
+                <span class="search-icon">⌕</span>
+
+                <input
+                  id="eventSearch"
+                  type="search"
+                  placeholder="Event Details"
+                  autocomplete="off">
+              </div>
+
+              <button id="settingsBtn" class="settings-btn" aria-label="Table settings">
+                ⚙
+              </button>
+            </div>
+
+            <!-- TABLE SETTINGS -->
+            <div id="tableSettings" class="table-settings hidden">
+              <label>
+                <input type="checkbox" data-col="sp" checked>
+                Skill Points
+              </label>
+
+              <label>
+                <input type="checkbox" data-col="earnings" checked>
+                Earnings
+              </label>
+
+              <label>
+                <input type="checkbox" data-col="roster" checked>
+                Roster
+              </label>
+            </div>
+
+            <!-- RESULTS TABLE -->
+            <div class="table-scroll">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>
+                      <button id="sortEvent" class="sort-button">
+                        Event <span>▾</span>
+                      </button>
+                    </th>
+
+                    <th>Place</th>
+                    <th data-col="sp">Skill Points</th>
+                    <th data-col="earnings">Earnings</th>
+                    <th data-col="roster">Roster</th>
+                    <th>Matches</th>
+                    <th>Wins</th>
+                    <th></th>
+                  </tr>
+                </thead>
+
+                <tbody id="resultsBody"></tbody>
+              </table>
+
+              <div id="emptyState" class="empty-state hidden">
+                No events.
+              </div>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="table-footer">
+              <span id="resultCount">Showing 0 results</span>
+
+              <div class="pagination">
+                <button id="prevPage" disabled>‹</button>
+                <span id="pageLabel">1 / 1</span>
+                <button id="nextPage" disabled>›</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      Bumble Esports stats dashboard · Data shown is not affiliated with Epic Games.
+    </footer>
+  </div>
+
+  <!-- PLAYER MODAL -->
+  <div
+    id="playerModal"
+    class="modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle">
+
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <div class="modal-card">
+      <div class="modal-heading">
+        <div>
+          <span class="muted">PLAYER SEARCH</span>
+          <h2 id="modalTitle">Find a player</h2>
+        </div>
+
+        <button class="modal-close" data-close-modal aria-label="Close">
+          ×
+        </button>
+      </div>
+
+      <label class="player-search">
+        <span>⌕</span>
+
+        <input
+          id="playerSearch"
+          type="search"
+          placeholder="Enter player name…"
+          autocomplete="off">
+      </label>
+
+      <div id="playerResults" class="player-results"></div>
+
+      <p class="modal-help">
+        Player profiles are managed manually in script.js.
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
