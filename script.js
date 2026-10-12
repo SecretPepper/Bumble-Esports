@@ -102,7 +102,7 @@ const ROCKET_PLAYERS = [
     name: "purqle",
     role: "PRO",
     region: "Europe",
-    country: "germany",
+    country: "Germany",
     rankMeta: "Academy 3",
     skillPoints: 0,
     yearSP: 0,
